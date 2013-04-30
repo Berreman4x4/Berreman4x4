@@ -12,5 +12,5 @@ You can browse through the project page or download the repository with the comm
 
 Example of simulation result (from file `cholesteric-example.py`):
 
-![Example of simulation computed with Berreman4x4](cholesteric-example.png)
+![Example of simulation computed with Berreman4x4](cholesteric-example.png?raw=true)
 
