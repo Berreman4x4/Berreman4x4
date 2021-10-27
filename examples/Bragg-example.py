@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # encoding: utf-8
 
 # Berreman4x4 example
@@ -63,14 +63,14 @@ T = data.get('T_ss')
 
 # Plotting 
 fig = pyplot.figure()
-ax = fig.add_subplot("111")
+ax = fig.add_subplot(
+        xlabel=r"Wavelength $\lambda$ (m)",
+        ylabel=r"Power reflection $R$ or transmission $T$",
+        title=r"Bragg mirror: Air/{TiO$_2$/SiO$_2$}x8/TiO$_2$/Glass")
+
 ax.plot(lbda_list, R, label="$R$")
 ax.plot(lbda_list, T, label="$T$")
-
 ax.legend(loc='center right')
-ax.set_xlabel(r"Wavelength $\lambda$ (m)")
-ax.set_ylabel(r"Power reflection $R$ or transmission $T$")
-ax.set_title(r"Bragg mirror: Air/{TiO$_2$/SiO$_2$}x8/TiO$_2$/Glass")
 
 fmt = ax.xaxis.get_major_formatter()
 fmt.set_powerlimits((-3,3))

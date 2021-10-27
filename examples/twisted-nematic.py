@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # encoding: utf-8
 
 # Berreman4x4 example
@@ -56,7 +56,7 @@ k0_list = numpy.linspace(2*pi/lbda_max, 2*pi/lbda_min)
 
 # Plot setup
 fig = pyplot.figure()
-ax = fig.add_subplot("111")
+ax = fig.add_subplot()
 
 # Plot Gooch-Tarry law, for comparison
 u = 2*d*Dn*k0_list/(2*pi)
@@ -64,17 +64,17 @@ T = sin(pi/2*sqrt(1+u**2))**2 / (1+u**2)
 ax.plot(k0_list, T, label="Gooch-Tarry law")
 
 # Calulation with Berreman4x4 and plotting
-def plotTransmission(label):
+def plotTransmission(label, marker='x'):
     """Plots power transmission vs. wavenumber."""
     data = Berreman4x4.DataList([s.evaluate(Kx,k0) for k0 in k0_list])
     T = data.get('T_pp')
-    ax.plot(k0_list, T, 'x', label=label)
+    ax.plot(k0_list, T, marker, label=label)
 
 # Two plots are made, with 7 or 18 divisions in the TwistedMaterial
 TN.setDivision(7)
-plotTransmission("Berreman4x4, 7 div")
+plotTransmission("Berreman4x4, 7 div", "+")
 TN.setDivision(18) 
-plotTransmission("Berreman4x4, 18 div")
+plotTransmission("Berreman4x4, 18 div", "x")
 
 # Titles
 ax.set_title(u"90° Twisted Nematic Liquid Crystal, " + 

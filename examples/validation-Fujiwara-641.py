@@ -24,7 +24,7 @@ front = Berreman4x4.IsotropicHalfSpace(air)
 
 # Anisotropic substrate
 uniaxialMaterialRef = Berreman4x4.UniaxialNonDispersiveMaterial(n_o,n_e)
-back = Berreman4x4.HalfSpace()
+back = Berreman4x4.HalfSpace()      # Material will be set later (see below)
 
 s = Berreman4x4.Structure(front, [], back)
 

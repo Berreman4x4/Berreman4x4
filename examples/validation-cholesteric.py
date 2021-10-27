@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # encoding: utf-8
 
 # Berreman4x4 example
@@ -72,17 +72,16 @@ R_RR = data.get('R_RR')
 ############################################################################
 # Plotting
 fig = pyplot.figure()
-ax = fig.add_subplot("111")
+ax = fig.add_subplot(xlabel=r"Wavelength $\lambda_0$ (m)",
+                     ylabel=r"Power reflexion $R$",
+                     title="Right-handed Cholesteric Liquid Crystal, " +
+                           "{:.1f} helix pitches".format(N/2.))
 
 ax.plot(lbda, R_RR, label='R_RR')
 ax.plot(lbda, R_th, 'r', label='R_th')
 
 ax.legend(loc='center right', bbox_to_anchor=(1.00, 0.50))
 
-ax.set_title("Right-handed Cholesteric Liquid Crystal, " +
-             "{:.1f} helix pitches".format(N/2.))
-ax.set_xlabel(r"Wavelength $\lambda_0$ (m)")
-ax.set_ylabel(r"Power reflexion $R$")
 fmt = ax.xaxis.get_major_formatter()
 fmt.set_powerlimits((-3,3))
 

@@ -75,16 +75,17 @@ def rotation_V(V):
 
     Note : The inverse rotation is -V
     """
+    V = numpy.ravel(V)
     W = numpy.matrix([[0, -V[2], V[1]], 
                       [V[2], 0, -V[0]], 
                       [-V[1], V[0], 0]])
     return numpy.matrix(scipy.linalg.expm(W))
 
 
-def rotation_v_theta(v,theta):
-    """Returns rotation matrix defined by a unit rotation vector and an angle
+def rotation_v_theta(v, theta):
+    """Returns the matrix of rotation of angle 'theta' around unity vector 'v'
 
-    'v' : unit vector orienting the rotation (list or array)
+    'v' : unity vector orienting the rotation (list or array)
     'theta' : rotation angle around v in radians
 
     Returns : rotation matrix M_R.
@@ -92,6 +93,7 @@ def rotation_v_theta(v,theta):
 
     Notes : The inverse rotation is (v,-theta) 
     """
+    v = numpy.ravel(v)
     w = numpy.matrix([[0, -v[2], v[1]], 
                       [v[2], 0, -v[0]], 
                       [-v[1], v[0], 0]])
@@ -134,7 +136,8 @@ class DispersionLaw:
         lbda = numpy.linspace(*lbda_range)
         n = self.getValue(lbda)
         fig = matplotlib.pyplot.figure()
-        ax = fig.add_subplot("111")
+        ax = fig.add_subplot(xlabel="Wavelength (µm)",
+                             ylabel="n = n' + j n''")
         ax.plot(lbda*1e6, n.real, "-",  label="n'")
         ax.plot(lbda*1e6, n.imag, "--", label="n''")
         ax.legend()
@@ -142,8 +145,6 @@ class DispersionLaw:
             ax.set_title("Refractive index " + '"' + self.name + '"')
         else:
             ax.set_title("Refractive index")
-        ax.set_xlabel("Wavelength (µm)")
-        ax.set_ylabel("n = n' + j n''")
 
 class DispersionSellmeier(DispersionLaw):
     """Sellmeier dispersion law equation."""
@@ -866,6 +867,10 @@ class HomogeneousIsotropicLayer(HomogeneousLayer):
         nr = numpy.real(self.material.getRefractiveIndex(lbda))
         return lbda / (4.*nr)
 
+    def get_HWP_thickness(self, lbda=1e-6):
+        """Return the thickness of a Half Wave Plate at wavelength 'lbda'."""
+        nr = numpy.real(self.material.getRefractiveIndex(lbda))
+        return lbda / (2.*nr)
 
 #########################################################
 # Inhomogeneous layers...
@@ -1222,13 +1227,12 @@ class Structure:
         n = numpy.hstack((n, n[-1]))
         # Draw the graph
         fig = matplotlib.pyplot.figure(figsize=(8,3))
-        ax = fig.add_subplot("111")
+        ax = fig.add_subplot(xlabel="z (m)",
+                             ylabel="n'")
         fig.subplots_adjust(bottom=0.17)
         ax.step(z, n.real, 'black', where='post')
         ax.spines['top'].set_visible(False)
         ax.xaxis.set_ticks_position('bottom')
-        ax.set_xlabel("z (m)")
-        ax.set_ylabel("n'")
         ax.ticklabel_format(style='scientific', axis='x', scilimits=(0,0))
         ax.set_xlim(z.min(), z.max())
         ax.set_ylim(bottom=1.0)
@@ -1242,10 +1246,9 @@ class Structure:
         n = numpy.array(n).reshape((1,-1)).real
         # Draw the cross section
         fig = matplotlib.pyplot.figure(figsize=(8,3))
-        ax = fig.add_subplot("111")
+        ax = fig.add_subplot(xlabel="z (m)")
         fig.subplots_adjust(left=0.05, bottom=0.15)
         ax.set_yticks([])
-        ax.set_xlabel("z (m)")
         ax.ticklabel_format(style='scientific', axis='x', scilimits=(0,0))
         ax.set_xlim(z.min(), z.max())
         stack = ax.pcolormesh(X,Y,n, cmap=matplotlib.cm.gray_r)
@@ -1393,7 +1396,7 @@ class DataList(list):
     
     Note : The functions getCircularJones() and getEllipsometryParameters()
     are defined as class methods so that they can be called both from instances
-    ans from the class itself.
+    and from the class itself.
     """
 
     # Transformation matrix from the (s,p) basis to the (L,R) basis...
@@ -1535,7 +1538,7 @@ class DataList(list):
         param = name[0]
 
         # Check if some tables should be activated...
-        power_transmission = param == 'T'
+        power_transmission = (param == 'T')
         circular = len(name) > 1 and name[2] in ['L','R']
         ellipsometry = param in ['Ψ', 'Δ']
 

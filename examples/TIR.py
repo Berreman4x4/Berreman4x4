@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # encoding: utf-8
 
 # Berreman4x4 example
@@ -54,7 +54,9 @@ T_s = data.get('T_ss')
 # Plotting
 fig = pyplot.figure(figsize=(12., 6.))
 pyplot.rcParams['axes.prop_cycle'] = pyplot.cycler('color', 'bgrcbg')
-ax = fig.add_axes([0.1, 0.1, 0.7, 0.8])
+ax = fig.add_subplot(title="FTIR for Glass / Air interface",
+                     xlabel=u"Angle of incidence (°)",
+                     ylabel=r"Reflexion coefficients $R$")
 
 y = numpy.vstack((R_s,R_p)).T
 legend = ("R_s","R_p")
@@ -64,9 +66,6 @@ lines = ax.plot(Phi_list*180/pi, y)
 ax.legend(lines, legend, 
           loc='upper left', bbox_to_anchor=(1.05, 1), borderaxespad=0.)
 
-ax.set_title("FTIR: Glass / Air")
-ax.set_xlabel(u"Angle of incidence (°)")
-ax.set_ylabel(r"Reflexion coefficients $R$")
 ax.set_ylim(top=1.05)
 
 try: 

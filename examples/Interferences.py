@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # encoding: utf-8
 
 # Berreman4x4 example
@@ -46,12 +46,13 @@ values = [data.get(name) for name in coeff_names]
 # Prepare plot...
 d = numpy.vstack(values).T
 fig = pyplot.figure()
-ax = fig.add_subplot("111")
+ax = fig.add_subplot(
+        title="Glass layer at {:.1f}° incidence angle".format(angle),
+        xlabel=r"Glass layer thickness, $h$ (m)",
+        ylabel=r"Reflexion and transmission coefficients $R$, $T$")
+
 lines = ax.plot(h_list, d)
 ax.legend(lines, coeff_names)
-ax.set_title("Glass layer at {:.1f} degree incidence angle".format(angle))
-ax.set_xlabel(r"Glass layer thickness, $h$ (m)")
-ax.set_ylabel(r"Reflexion and transmission coefficients $R$, $T$")
 fmt = ax.xaxis.get_major_formatter()
 fmt.set_powerlimits((-3,3))
 pyplot.show()

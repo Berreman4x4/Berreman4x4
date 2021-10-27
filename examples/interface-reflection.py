@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # encoding: utf-8
 
 # Berreman4x4 example
@@ -100,6 +100,6 @@ ax.set_xlabel(r"Reduced wave vector $Kx$ ")
 ax.set_ylabel(r"Reflexion and transmission coefficients $R$,$T$, $|t|^2$")
 
 s.drawStructure()
-print("Lines and circles should be superimposed!")
+print("If the code works well, the circles are on the lines.")
 pyplot.show()
 

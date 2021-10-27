@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # encoding: utf-8
 
 # Berreman4x4 example
@@ -110,7 +110,11 @@ R_LL = data.get('R_LL')
 ############################################################################
 # Plotting
 fig = pyplot.figure()
-ax = fig.add_subplot("111")
+ax = fig.add_subplot(
+        title="Right-handed Cholesteric Liquid Crystal, aligned along \n" + 
+              "the $x$ direction, with {:.1f} helix pitches.".format(N/2.),
+        xlabel=r"Wavelength $\lambda_0$ (m)",
+        ylabel=r"Power transmission $T$ and reflexion $R$")
 
 # Draw rectangle for λ ∈ [p·no, p·ne], and T ∈ [0, R_th]
 rectangle = pyplot.Rectangle((lbda_B1,0), lbda_B2-lbda_B1, R_th, color='cyan')
@@ -123,11 +127,8 @@ ax.plot(lbda_list, T_ns, label='T_ns')
 ax.plot(lbda_list, T_np, label='T_np')
 
 ax.legend(loc='center right', bbox_to_anchor=(1.00, 0.50))
+ax.set_ylim(0,1)
 
-ax.set_title("Right-handed Cholesteric Liquid Crystal, aligned along \n" + 
-             "the $x$ direction, with {:.1f} helix pitches.".format(N/2.))
-ax.set_xlabel(r"Wavelength $\lambda_0$ (m)")
-ax.set_ylabel(r"Power transmission $T$ and reflexion $R$")
 fmt = ax.xaxis.get_major_formatter()
 fmt.set_powerlimits((-3,3))
 

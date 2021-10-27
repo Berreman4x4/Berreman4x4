@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # encoding: utf-8
 # Berreman4x4 example
 # Author: O. Castany, C. Molinaro

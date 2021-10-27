@@ -150,25 +150,25 @@ for Theta_E in Theta_E_list:
 fig = pyplot.figure()
 # Plot curves for the three values of Theta_E
 pyplot.rcParams['axes.prop_cycle'] = pyplot.cycler('color', 'kbg')
-ax1 = fig.add_subplot("221")
+ax1 = fig.add_subplot(2,2,1)
 Psi_pp = data.get('Ψ_pp')
 ax1.plot(Phi_E_deg, Psi_pp.T)
 ax1.set_ylabel(r"$\Psi_{pp}$")
 
-ax2 = fig.add_subplot("222")
+ax2 = fig.add_subplot(2,2,2)
 Delta_pp = data.get('Δ_pp')
 ax2.plot(Phi_E_deg, Delta_pp.T)
 ax2.set_ylabel(r"$\Delta_{pp}$")
 
 # Plot curves for two values of Theta_E
 pyplot.rcParams['axes.prop_cycle'] = pyplot.cycler('color', 'bg')
-ax3 = fig.add_subplot("223")
+ax3 = fig.add_subplot(2,2,3)
 Psi_ps = data.get('Ψ_ps')
 ax3.plot(Phi_E_deg, Psi_ps.T)
 ax3.set_ylabel(r"$\Psi_{ps}$")
 ax3.set_xlabel(r"$\phi_E$")
 
-ax4 = fig.add_subplot("224")
+ax4 = fig.add_subplot(2,2,4)
 Delta_ps = data.get('Δ_ps')
 ax4.plot(Phi_E_deg, Delta_ps.T)
 ax4.set_ylabel(r"$\Delta_{ps}$")
