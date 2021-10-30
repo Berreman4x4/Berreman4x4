@@ -485,7 +485,7 @@ def buildDeltaMatrix(Kx, eps):
 
 
 #########################################################
-# Propagator for a homogeneous slab of material...
+# Propagators for a homogeneous slab of material...
 
 def hs_propagator(Delta, h, k0, method="linear", q=None):
     """Returns propagator for homogeneous slab of thickness h.
@@ -512,7 +512,8 @@ def hs_propagator(Delta, h, k0, method="linear", q=None):
     elif method == "Padé":      return hs_propagator_Pade(Delta, h, k0, q)
     elif method == "Taylor":    return hs_propagator_Taylor(Delta, h, k0, q)
     # elif method == "eig":       return hs_propagator_eig(Delta, h, k0)
-
+    ## See hs_propagator_eig() for explanation of the deprecation.
+    
 def hs_propagator_lin(Delta, h, k0, q=None):
     """Returns propagator with linear approximation.
     
@@ -631,7 +632,7 @@ class IsotropicHalfSpace(HalfSpace):
     * Provides relations between incidence angle Φ and reduced wave vector Kx.
 
       As detailed in the documentation, 'Φ' is the angle of the plane wave 
-      traveling to the right (angle measured with respect to z axis and 
+      traveling to the right with respect to the horizontal z (the angle is
       oriented by y). The angle of the wave traveling to the left is '-Φ'.
     """
 
@@ -1526,8 +1527,8 @@ class DataList(list):
         'T_pp' : Power transmission coefficient from 'p' to 'p' polarization.
         'Ψ_ps', 'Δ_pp' : Ellipsometry parameters.
 
-        Note : 'Ψ', 'Δ' are shortcuts for 'Ψ_pp' and 'Δ_pp', which are the only
-        non zero parameters for samples with isotropic layers.
+        Note : 'Ψ', 'Δ' are shortcuts for 'Ψ_pp' and 'Δ_pp' (for samples with 
+               only isotropic layers, the off-diagonal coefficients vanish).
 
         For more information about the definition of the...
         * ellipsomtery parameters see getEllipsometryParameters()

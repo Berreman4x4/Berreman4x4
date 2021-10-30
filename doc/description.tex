@@ -16,7 +16,7 @@ However the structure of Berreman4x4 is difficult to vectorize with enough gener
 
 Calculations are based on articles from Berreman \cite{Berreman} and Schubert \cite{Schubert}.
 Application to ellipsometry is based on Fujiwara's book \cite{Fujiwara}.
-General references for optics in anisotropic media are found from Born and Wolf \cite{BornWolf}, and Jackson \cite{Jackson}.
+General references about optics in anisotropic media are the books from Born and Wolf \cite{BornWolf} and from Jackson \cite{Jackson}.
 
 \section{Presentation}
 
@@ -112,7 +112,7 @@ $$
 0 & -\Kx \dfrac{\eps_{1,3}}{\eps_{3,3}}
 \end{pmatrix}
 $$
-The reduced wave number $K_x = k_x/k_0$ is a constant throughout the sample and depends only on the angle of the incident wave.
+The wave number $k_x$ and the reduced wave number $K_x = k_x/k_0$ are constant throughout the sample. They only depend on the angle of the incident wave according to $K_x = n_f \sin(\phi_i)$, where $n_f$ is the refractive index of the incident medium.
 
 For a homogeneous slab $z_1 < z < z_2$, the matrix $\Delta(z)$ is constant and equation~\ref{eq:propagation} can be integrated into $\Psi(z_2) = P_{hs}(z_2,z_1) \times  \Psi(z_1)$, where the propagator is given by the matrix exponential
 $$
@@ -218,7 +218,7 @@ $$
 
 \section{Matrix assembling and Jones matrices}
 
-The global propagation matrix and the two transition matrices are assembled in order to relate the coefficients of the waves in the two half-spaces.
+The global propagation matrix and the two transition matrices are assembled in order to connect the coefficients of the waves in the two half-spaces.
 We obtain the total transfer matrix $T$ with
 $$
 \begin{pmatrix}
@@ -242,7 +242,7 @@ T \
 c_1\\ 0 \\ c_3\\ 0
 \end{pmatrix},
 $$
-from which two useful relations can be extracted,
+from which two useful relations are extracted,
 \begin{align*}
 & 
 \begin{pmatrix}
@@ -274,8 +274,8 @@ c_3\\ c_1
 c_3\\ c_1
 \end{pmatrix}.
 \end{align*}
-
-Reflection of the incident wave can be described by a Jones matrix $T_{ri}$, and if the back half-space is isotropic, a Jones matrix $T_{ti}$ for transmission can also be defined \cite{Jones, Fujiwara},
+%
+The reflection of the incident wave can be described by a Jones matrix $T_{ri}$, and if the back half-space is isotropic, a matrix $T_{ti}$ for transmission can also be defined \cite{Jones, Fujiwara},
 \begin{align*}
 \begin{pmatrix}
 E_{rp} \\ E_{rs}
@@ -305,7 +305,7 @@ E_{ip} \\ E_{is}
 E_{ip} \\ E_{is}
 \end{pmatrix}_{z_f}
 \end{align*}
-These matrices contain all the information on reflection and transmission of the sample. 
+These matrices contain all the information about reflection and transmission of the sample. 
 They are obtained by the relations 
 $$
 T_{ri} = T_{rt} T_{it}^{-1} 
@@ -352,8 +352,8 @@ The relations between the Jones vectors in the two bases are
 \begin{eqnarray*}
 \begin{pmatrix} E_{ip} \\ E_{is} \end{pmatrix}
 = C\  
-\begin{pmatrix} E_{iL} \\ E_{iR} \end{pmatrix}
-& , &
+\begin{pmatrix} E_{iL} \\ E_{iR} \end{pmatrix},
+&  &
 \begin{pmatrix} E_{tp} \\ E_{is} \end{pmatrix}
 = C\  
 \begin{pmatrix} E_{tL} \\ E_{iR} \end{pmatrix},\\
@@ -368,8 +368,7 @@ $T^c_{ri} = D^{-1}\ T_{ri}\ C$.
 
 \section{Ellipsometry parameters}
 
-Ellipsometry parameters describe the reflection of the sample by the normalized reflection matrix $T_{ri}/r_{ss}$, as presented in Fujiwara's book, reference \onlinecite{Fujiwara}, p.~220.
-However, since we use an opposite orientation convention for $E_{rp}$, a change of sign is necessary for matching the convention of ellipsometry and we define
+In ellipsometry, the reflection of the sample is evaluated for all the polarizations and reported normalized to $r_{ss}$ according to the definition
 \begin{multline*}
 \begin{pmatrix}
 \tan(\psi_{pp})\ e^{\displaystyle -i\Delta_{pp}} & 
@@ -383,31 +382,16 @@ However, since we use an opposite orientation convention for $E_{rp}$, a change 
 \hphantom{-}r_{sp}/r_{ss} & 1 
 \end{pmatrix}.
 \end{multline*}
-The minus sign in front of $\Delta$ is chosen due to the $\exp(-i\omega t)$ phase convention.
-The ellipsometry angles are chosen with $\psi\in[0,\pi/2]$ and $\Delta\in\ ]-\pi,\pi]$.
-If the sample is isotropic in the $(x,y)$ direction, the off-diagonal coefficients $sp$ and $ps$ vanish and only two parameters are needed to describe the reflection.
-We have
-$$
-T_{ri} =
-\begin{pmatrix}
-r_{pp} & 0\\
-0 & r_{ss}
-\end{pmatrix}
-\quad\mathrm{and}\quad
-T_{ti} =
-\begin{pmatrix}
-t_{pp} & 0\\
-0 & t_{ss}
-\end{pmatrix}
-$$
-and we define the ellipsometry parameters $\psi$ and $\Delta$ with 
+The angles are chosen with $\psi\in[0,\pi/2]$ and $\Delta\in\ ]-\pi,\pi]$ and correspond to the conventions of ellipsometry. Compared to Fujiwara's book (reference \onlinecite{Fujiwara}, p.~220), we have signs in the definition because we used other conventions for the orientation of $E_{rp}$ and for the time evolution in the exponential.
+
+If the sample is isotropic in the $(x,y)$ direction, the off-diagonal coefficients $sp$ and $ps$ vanish and only two parameters are needed to describe the reflection,
 $$
 \tan(\psi)\ e^{\displaystyle -i\Delta} = -r_{pp}/r_{ss}.
 $$
 
 \section{Installation and use}
 
-Berreman4x4 is offered as a Python module named \verb/Berreman4x4.py/, which can be imported and used in Python scripts with the command 
+Berreman4x4 is offered as a Python module named \verb/Berreman4x4.py/, which can be imported and used in Python scripts after the command 
 \begin{verbatim}
 import Berreman4x4
 \end{verbatim}
